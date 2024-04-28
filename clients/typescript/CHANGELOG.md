@@ -1,5 +1,16 @@
 # electric-sql
 
+## 0.10.2
+
+### Patch Changes
+
+- c35956d6: Don't leave a snapshot running when stopping the Satellite process
+- 5dd3975e: Fix bug with null values in INT8 (BigInt) columns.
+- 22a7555a: Fix CLI `PROXY` option to correctly infer database name and not print introspection url.
+- ec27052c: Remove max listener warning on `EventNotifier`'s event emitter.
+- 22a7555a: Fix `ELECTRIC_` options not working as CLI arguments
+- 244033ff: Ensure no snapshot is taken after closing the Satellite process.
+
 ## 0.10.1
 
 ### Patch Changes

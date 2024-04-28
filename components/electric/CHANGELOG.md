@@ -1,5 +1,27 @@
 # @core/electric
 
+## 0.10.2
+
+### Patch Changes
+
+- bbe2f243: Persist client reconnection info to the database. This allows the sync service to restore its caches after a restart to be able to resume client replication streams and avoid resetting their local databases.
+- d3759838: fix: filter the compensations along with main changes using the magic `electric_user_id`
+- 6573147a: fix: non-leading primary key columns should no longer break replication
+- cb175558: Introduce the concept of "WAL window" that Electric can keep around to enable it to recover already-seen transactions after a restart.
+
+  Where previously Electric was acknowledging transactions as soon as it was
+  receiving them from Postgres, now it will manually advance its replication's
+  slot starting position when needed to keep the overall disk usage within the
+  configurable limit. This allows Electric to replay some transactions it
+  previously consumed from the logical replication stream after a restart and
+  repopulate its in-memory cache of transactions that it uses to resume clients'
+  replication streams.
+
+- ed915ddd: Fix electrification of tables with previously dropped columns.
+- f12dd95c: Fix data encoding issues caused by unexpected cluster-wide or database-specific configuration in Postgres. Electric now overrides certain settings it is sensitive to when opening a new connection to the database.
+- 69eb03c2: fix: migration statements in a transaction should preserve original order when sent to the clients.
+- c00c293b: shapes: support `IS NULL`, `IS NOT NULL`, `IS TRUE/FALSE` and `IS NOT TRUE/FALSE` operators in where clauses
+
 ## 0.10.1
 
 ### Patch Changes
